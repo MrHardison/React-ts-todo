@@ -1,7 +1,7 @@
 import React from 'react'
 import Filter from '../Filter/Filter'
 import Ifilter from '../../Interface/Filter'
-import './filters.css'
+import './filters.sass'
 
 interface Iprops {
   filters: Array<Ifilter>

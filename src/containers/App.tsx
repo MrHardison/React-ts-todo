@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import List from '../components/List/List'
-import Add from '../components/Add'
+import Add from '../components/Add/Add'
 import Filters from '../components/Filters/Filters'
 
 import Iitem from '../Interface/Item'
@@ -33,7 +33,12 @@ const App = () => {
     { name: 'Active', active: false }
   ])
 
-  const addItem = (item: Iitem): void => {
+  const addItem = (title: string): void => {
+    const item: Iitem = {
+      id: Date.now(),
+      title,
+      completed: false
+    }
     setList([...list, item])
   }
 

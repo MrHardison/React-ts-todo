@@ -1,34 +1,28 @@
 import React, { useState } from 'react'
-import Iitem from '../Interface/Item'
 
 interface Iprops {
-  addItem: (item: Iitem) => void
+  addItem: (title: string) => void
 }
 
 const Add = ({ addItem }: Iprops) => {
-  const initialData: Iitem = {
-    id: 0,
-    title: '',
-    completed: false
-  }
 
-  const [data, setData] = useState<Iitem>(initialData)
+  const [data, setData] = useState('')
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setData({ ...data, title: e.target.value, id: Date.now() })
+    setData(e.target.value)
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    if (data.title.length) {
+    if (data.trim()) {
       addItem(data)
-      setData(initialData)
+      setData('')
     }
   }
 
   return (
     <form className="form">
-      <input type="text" className="textfield" value={data.title} onChange={handleInput} />
+      <input type="text" className="textfield" value={data} onChange={handleInput} />
       <button onClick={handleSubmit}>Add item</button>
     </form>
   )

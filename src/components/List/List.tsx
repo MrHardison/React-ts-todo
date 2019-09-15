@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Item from '../Item/Item'
-import './list.css'
+import './list.sass'
 
 import Iitem from '../../Interface/Item'
 

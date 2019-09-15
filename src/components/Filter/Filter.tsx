@@ -1,6 +1,6 @@
 import React from 'react'
 import Ifilter from '../../Interface/Filter'
-import './filter.css'
+import './filter.sass'
 
 interface Iprops {
   filter: Ifilter
