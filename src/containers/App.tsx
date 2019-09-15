@@ -33,6 +33,8 @@ const App = () => {
     { name: 'Active', active: false }
   ])
 
+  const [editedItem, setEditedItem] = useState<Iitem>({id: 0, title: '', completed: false})
+
   const addItem = (title: string): void => {
     const item: Iitem = {
       id: Date.now(),
@@ -40,6 +42,10 @@ const App = () => {
       completed: false
     }
     setList([...list, item])
+  }
+
+  const editItem = (title: string): void => {
+    console.log(title)
   }
 
   const deleteItem = (item: Iitem): void => {

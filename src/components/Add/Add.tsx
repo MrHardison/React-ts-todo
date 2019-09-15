@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
 interface Iprops {
-  addItem: (title: string) => void
+  addItem: (title: string) => void,
+  editItem: (title: string) => void,
+  editTitle: string
 }
 
-const Add = ({ addItem }: Iprops) => {
+const Add = ({ addItem, editItem, editTitle }: Iprops) => {
 
   const [data, setData] = useState('')
 
@@ -15,7 +17,7 @@ const Add = ({ addItem }: Iprops) => {
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>): void => {
     e.preventDefault()
     if (data.trim()) {
-      addItem(data)
+      editTitle ? editItem(data) : addItem(data)
       setData('')
     }
   }
@@ -23,7 +25,7 @@ const Add = ({ addItem }: Iprops) => {
   return (
     <form className="form">
       <input type="text" className="textfield" value={data} onChange={handleInput} />
-      <button onClick={handleSubmit}>Add item</button>
+      <button onClick={handleSubmit}>{editTitle ? 'Edit' : 'Add'} item</button>
     </form>
   )
 }
