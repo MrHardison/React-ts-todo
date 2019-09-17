@@ -9,11 +9,15 @@ code
 
 .container
   align-items: center
+  background: #f1f1f1
   height: 100vh
   display: flex
   flex-direction: column
   flex-wrap: wrap
   justify-content: center
+
+.wrapper
+  width: 500px
 
 ul
   padding: 0
@@ -40,25 +44,25 @@ form
   display: flex
   margin-bottom: 1rem
   justify-content: space-between
-  width: 500px
 
 .textfield
   width: 80%
   height: 20px
 
 .empty-list
+  border-radius: 4px
+  background: #fff
   border: 1px solid #000
   display: flex
+  margin-bottom: 1rem
   padding: 1rem 0
   justify-content: center
-  width: 500px
 
 .info-wrapper
   align-items: center
-  margin-top: 0.5rem
+  margin: 1rem 0
   display: flex
   justify-content: space-between
-  width: 500px
 
   .toggle-all
     align-items: center
@@ -67,5 +71,15 @@ form
   .label
     margin-right: .5rem
 
+  .left-count
+    .count
+      color: green
+
+      &.red
+        color: red
+
 .checkbox, .label
   cursor: pointer
+
+.checkbox
+  margin: 0
