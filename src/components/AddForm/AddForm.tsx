@@ -16,7 +16,7 @@ const mapStateToProps = (state: Iroot) => ({
 
 type Props = Iprops & ReturnType<typeof mapStateToProps>
 
-const Add = ({ editedItem, dispatch }: Props) => {
+const AddForm = ({ editedItem, dispatch }: Props) => {
   const [title, setTitle] = useState('')
   const [edit, setEdit] = useState(false)
 
@@ -58,4 +58,4 @@ const Add = ({ editedItem, dispatch }: Props) => {
   )
 }
 
-export default connect(mapStateToProps)(Add)
+export default connect(mapStateToProps)(AddForm)

@@ -19,3 +19,7 @@ export const getListByFilter = createSelector(
       }
     })
 )
+export const getCompleteCount = createSelector(
+  [list],
+  (list: Iitem[]) => list.filter(i => i.completed).length
+)

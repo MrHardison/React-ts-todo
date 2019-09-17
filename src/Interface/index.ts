@@ -1,6 +1,7 @@
 export interface Iroot {
   listReducer: IlistObj
   filterReducer: IfiltersObj
+  completedCount: number
 }
 
 export interface Iitem {

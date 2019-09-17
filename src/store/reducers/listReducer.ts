@@ -1,10 +1,6 @@
-import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM, TOGGLE_EDIT, EDIT_ITEM } from '../constants'
-import { Iitem, IlistObj } from '../../Interface'
-
-interface Iprops {
-  type: string
-  payload: Iitem
-}
+import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM, TOGGLE_EDIT, EDIT_ITEM, TOGGLE_ALL } from '../constants'
+import { IlistObj } from '../../Interface'
+import { listActions } from '../../Interface/actionTypes'
 
 const initialState: IlistObj = {
   list: [
@@ -30,20 +26,20 @@ const initialState: IlistObj = {
   }
 }
 
-const listReducer = (state = initialState, { type, payload }: Iprops) => {
-  switch (type) {
+const listReducer = (state = initialState, action: listActions): IlistObj => {
+  switch (action.type) {
     case ADD_ITEM:
-      return { ...state, list: [...state.list, payload] }
+      return { ...state, list: [...state.list, action.payload] }
 
     case DELETE_ITEM:
-      return { ...state, list: state.list.filter(item => item !== payload) }
+      return { ...state, list: state.list.filter(item => item !== action.payload) }
 
     case TOGGLE_ITEM:
       return {
         ...state,
         list: state.list.map(item => {
-          if (item.id === payload.id) {
-            item.completed = payload.completed
+          if (item.id === action.payload.id) {
+            item.completed = action.payload.completed
           }
           return item
         })
@@ -52,15 +48,24 @@ const listReducer = (state = initialState, { type, payload }: Iprops) => {
     case TOGGLE_EDIT:
       return {
         ...state,
-        editedItem: { id: payload.id, title: payload.title }
+        editedItem: { id: action.payload.id, title: action.payload.title }
+      }
+
+    case TOGGLE_ALL:
+      return {
+        ...state,
+        list: state.list.map(i => {
+          i.completed = action.payload
+          return i
+        })
       }
 
     case EDIT_ITEM:
       return {
         ...state,
         list: state.list.map(item => {
-          if (item.id === payload.id) {
-            item.title = payload.title
+          if (item.id === action.payload.id) {
+            item.title = action.payload.title
           }
           return item
         })
