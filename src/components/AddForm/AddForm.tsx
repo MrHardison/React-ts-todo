@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { actionAddItem, actionEditItem, actionToggleEditItem } from '../../store/actions/listActions'
+import { actionAddItem, actionEditItem, actionToggleEditItem, actionDeleteItem } from '../../store/actions/listActions'
 
 import { Iitem, Iroot } from '../../Interface'
 
@@ -27,19 +27,25 @@ const AddForm = ({ editedItem, dispatch }: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    if (title.trim()) {
-      if (edit) {
-        dispatch(actionEditItem({ id: editedItem.id, title }))
-        dispatch(actionToggleEditItem({ id: null, title: '' }))
-        setEdit(false)
-      } else {
-        const item: Iitem = {
-          id: Date.now(),
-          title,
-          completed: false
-        }
-        dispatch(actionAddItem(item))
+    if (edit) {
+      const item = {
+        id: editedItem.id,
+        title
       }
+      if (title.trim()) {
+        dispatch(actionEditItem(item))
+        dispatch(actionToggleEditItem({ ...item, id: null, title: '' }))
+      } else if (!title.trim() && editedItem.id) {
+        dispatch(actionDeleteItem({ id: editedItem.id, title, completed: false }))
+      }
+      setEdit(false)
+    } else if (!edit && title.trim()) {
+      const item: Iitem = {
+        id: Date.now(),
+        title,
+        completed: false
+      }
+      dispatch(actionAddItem(item))
     }
     setTitle('')
   }

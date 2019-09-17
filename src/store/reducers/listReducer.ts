@@ -32,7 +32,7 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
       return { ...state, list: [...state.list, action.payload] }
 
     case DELETE_ITEM:
-      return { ...state, list: state.list.filter(item => item !== action.payload) }
+      return { ...state, list: state.list.filter(item => item.id !== action.payload.id) }
 
     case TOGGLE_ITEM:
       return {
