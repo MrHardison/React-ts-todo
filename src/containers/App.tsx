@@ -1,112 +1,51 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
 import List from '../components/List/List'
 import Add from '../components/Add/Add'
 import Filters from '../components/Filters/Filters'
 
-import Iitem from '../Interface/Item'
-import Ifilter from '../Interface/Filter'
+import { getListByFilter } from '../store/selectors/listSelector'
 
-const App = () => {
-  const [list, setList] = useState<Array<Iitem>>([
-    {
-      id: 1,
-      title: 'title1',
-      completed: false
-    },
-    {
-      id: 2,
-      title: 'title2',
-      completed: false
-    },
-    {
-      id: 3,
-      title: 'title3',
-      completed: false
-    }
-  ])
+import { actionDeleteItem, actionToggleItem, actionToggleEditItem } from '../store/actions/listActions'
 
-  const [filteredList, setFilteredList] = useState<Array<Iitem>>(list)
+import { Iitem, Iroot } from '../Interface'
 
-  const [filters, setFilters] = useState<Array<Ifilter>>([
-    { name: 'All', active: true },
-    { name: 'Completed', active: false },
-    { name: 'Active', active: false }
-  ])
+interface Iprops {
+  dispatch: Dispatch
+}
 
-  const [editedItem, setEditedItem] = useState<Iitem>({id: 0, title: '', completed: false})
+const mapStateToProps = (state: Iroot) => ({
+  list: getListByFilter(state)
+})
 
-  const addItem = (title: string): void => {
-    const item: Iitem = {
-      id: Date.now(),
-      title,
-      completed: false
-    }
-    setList([...list, item])
-  }
+type Props = Iprops & ReturnType<typeof mapStateToProps>
 
-  const editItem = (title: string): void => {
-    console.log(title)
-  }
-
+const App = ({ list, dispatch }: Props) => {
   const deleteItem = (item: Iitem): void => {
-    setList(list.filter(i => i !== item))
+    dispatch(actionDeleteItem(item))
   }
 
-  const changeItem = (item: Iitem): void => {
-    setList(
-      list.map(i => {
-        if (i.id === item.id) {
-          i.completed = item.completed
-        }
-        return i
-      })
-    )
+  const toggleItem = (item: Iitem): void => {
+    dispatch(actionToggleItem(item))
   }
 
-  const changeFilter = (type: string): void => {
-    setFilters(
-      filters.map(f => {
-        if (f.name === type) {
-          f.active = true
-        } else {
-          f.active = false
-        }
-        return f
-      })
-    )
+  const editItem = (item: Iitem): void => {
+    dispatch(actionToggleEditItem({ id: item.id, title: item.title }))
   }
-
-  useEffect(() => {
-    const activeFilter = filters.find(f => f.active)
-    if (activeFilter) {
-      const type = activeFilter.name
-      setFilteredList(
-        list.filter(i => {
-          if (type.toLowerCase() === 'all') {
-            return i
-          } else if (type.toLowerCase() === 'completed') {
-            return i.completed
-          } else if (type.toLowerCase() === 'active') {
-            return !i.completed
-          } else {
-            return i
-          }
-        })
-      )
-    }
-  }, [filters, list])
 
   return (
     <div className="container">
-      <Add addItem={addItem} />
-      {filteredList.length ? (
-        <List list={filteredList} deleteItem={deleteItem} changeItem={changeItem} />
+      <Add />
+      {list.length ? (
+        <List list={list} deleteItem={deleteItem} changeItem={toggleItem} editItem={editItem} />
       ) : (
         <div className="empty-list">List is empty</div>
       )}
-      <Filters filters={filters} changeFilter={changeFilter} />
+      <Filters />
     </div>
   )
 }
 
-export default App
+export default connect(mapStateToProps)(App)

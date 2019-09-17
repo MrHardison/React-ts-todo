@@ -1,15 +1,16 @@
 import React from 'react'
 import './item.sass'
 
-import Iitem from '../../Interface/Item'
+import { Iitem } from '../../Interface'
 
 interface Iprops {
   item: Iitem
   deleteItem: (item: Iitem) => void
   changeItem: (item: Iitem) => void
+  editItem: (item: Iitem) => void
 }
 
-const Item = ({ item, deleteItem, changeItem }: Iprops) => {
+const Item = ({ item, deleteItem, changeItem, editItem }: Iprops) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     changeItem({ ...item, completed: e.target.checked })
   }
@@ -19,9 +20,14 @@ const Item = ({ item, deleteItem, changeItem }: Iprops) => {
         <input className="checkbox" type="checkbox" checked={item.completed} onChange={handleChange} />
       </div>
       <div className={`title ${item.completed ? 'completed' : ''}`}>{item.title}</div>
-      <button className="delete" onClick={(): void => deleteItem(item)}>
-        x
-      </button>
+      <div className="actions">
+        <button className="edit" onClick={(): void => editItem(item)}>
+          Edit
+        </button>
+        <button className="delete" onClick={(): void => deleteItem(item)}>
+          &times;
+        </button>
+      </div>
     </li>
   )
 }
