@@ -23,3 +23,8 @@ export const getCompleteCount = createSelector(
   [list],
   (list: Iitem[]) => list.filter(i => i.completed).length
 )
+
+export const getFullListLength = createSelector(
+  [list],
+  (list: Iitem[]) => list.length
+)

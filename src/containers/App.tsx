@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
 import List from '../components/List/List'
-import Add from '../components/AddForm/AddForm'
+import AddForm from '../components/AddForm/AddForm'
 import Filters from '../components/Filters/Filters'
 
-import { getListByFilter, getCompleteCount } from '../store/selectors/listSelector'
+import { getListByFilter, getCompleteCount, getFullListLength } from '../store/selectors/listSelector'
 
 import { actionDeleteItem, actionToggleItem, actionToggleEditItem, actionToggleAll } from '../store/actions/listActions'
 
@@ -18,12 +18,13 @@ interface Iprops {
 
 const mapStateToProps = (state: Iroot) => ({
   list: getListByFilter(state),
-  completedCount: getCompleteCount(state)
+  completedCount: getCompleteCount(state),
+  fullListlength: getFullListLength(state)
 })
 
 type Props = Iprops & ReturnType<typeof mapStateToProps>
 
-const App = ({ list, completedCount, dispatch }: Props) => {
+const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
   const deleteItem = (item: Iitem): void => {
     dispatch(actionDeleteItem(item))
   }
@@ -42,7 +43,7 @@ const App = ({ list, completedCount, dispatch }: Props) => {
 
   return (
     <div className="container">
-      <Add />
+      <AddForm />
       {list.length ? (
         <>
           <List list={list} deleteItem={deleteItem} changeItem={toggleItem} editItem={editItem} />
@@ -60,7 +61,7 @@ const App = ({ list, completedCount, dispatch }: Props) => {
               />
             </div>
             <div className="left-count">
-              {list.length - completedCount} {list.length - completedCount === 1 ? 'item' : 'items'} left
+              {fullListlength - completedCount} {fullListlength - completedCount === 1 ? 'item' : 'items'} left
             </div>
           </div>
         </>
