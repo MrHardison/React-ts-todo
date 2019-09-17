@@ -46,17 +46,22 @@ const App = ({ list, completedCount, dispatch }: Props) => {
       {list.length ? (
         <>
           <List list={list} deleteItem={deleteItem} changeItem={toggleItem} editItem={editItem} />
-          <div className="toggleAll">
-            <label className="label" htmlFor="toggler">
-              {completedCount === list.length ? 'Uncomplete' : 'Complete'} all
-            </label>
-            <input
-              id="toggler"
-              className="checkbox"
-              type="checkbox"
-              checked={completedCount === list.length ? true : false}
-              onChange={toggleAll}
-            />
+          <div className="info-wrapper">
+            <div className="toggle-all">
+              <label className="label" htmlFor="toggler">
+                {completedCount === list.length ? 'Uncomplete' : 'Complete'} all
+              </label>
+              <input
+                id="toggler"
+                className="checkbox"
+                type="checkbox"
+                checked={completedCount === list.length ? true : false}
+                onChange={toggleAll}
+              />
+            </div>
+            <div className="left-count">
+              {list.length - completedCount} {list.length - completedCount === 1 ? 'item' : 'items'} left
+            </div>
           </div>
         </>
       ) : (

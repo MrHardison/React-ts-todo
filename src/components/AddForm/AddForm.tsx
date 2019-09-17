@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -19,6 +19,7 @@ type Props = Iprops & ReturnType<typeof mapStateToProps>
 const AddForm = ({ editedItem, dispatch }: Props) => {
   const [title, setTitle] = useState('')
   const [edit, setEdit] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.target.value)
@@ -47,12 +48,15 @@ const AddForm = ({ editedItem, dispatch }: Props) => {
     if (editedItem.id && editedItem.title.trim()) {
       setEdit(true)
       setTitle(editedItem.title)
+      if (inputRef && inputRef.current) {
+        inputRef.current.focus()
+      }
     }
   }, [editedItem])
 
   return (
     <form className="form">
-      <input type="text" className="textfield" value={title} onChange={handleInput} />
+      <input type="text" ref={inputRef} className="textfield" value={title} onChange={handleInput} />
       <button onClick={handleSubmit}>{edit ? 'Edit' : 'Add'} item</button>
     </form>
   )
