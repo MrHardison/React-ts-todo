@@ -7,15 +7,15 @@ const filter = (state: Iroot) => state.filterReducer.filtersList.find(f => f.act
 export const getListByFilter = createSelector(
   [filter, list],
   (filter: Ifilter, list: Iitem[]) =>
-    list.filter(i => {
+    list.filter(item => {
       if (filter.type.toLowerCase() === 'all') {
-        return i
+        return item
       } else if (filter.type.toLowerCase() === 'completed') {
-        return i.completed
+        return item.completed
       } else if (filter.type.toLowerCase() === 'active') {
-        return !i.completed
+        return !item.completed
       } else {
-        return i
+        return item
       }
     })
 )
