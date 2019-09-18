@@ -6,7 +6,8 @@ const initialState: IlistObj = {
   list: [],
   editedItem: {
     id: null,
-    title: ''
+    title: '',
+    priority: 'high'
   }
 }
 
@@ -16,7 +17,7 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
       return { ...state, list: [...state.list, action.payload] }
 
     case DELETE_ITEM:
-      return { ...state, list: state.list.filter(item => item.id !== action.payload.id) }
+      return { ...state, list: state.list.filter(item => item.id !== action.payload) }
 
     case TOGGLE_ITEM:
       return {
@@ -32,7 +33,7 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
     case TOGGLE_EDIT:
       return {
         ...state,
-        editedItem: { id: action.payload.id, title: action.payload.title }
+        editedItem: { id: action.payload.id, title: action.payload.title, priority: action.payload.priority }
       }
 
     case TOGGLE_ALL:
@@ -50,6 +51,7 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
         list: state.list.map(item => {
           if (item.id === action.payload.id) {
             item.title = action.payload.title
+            item.priority = action.payload.priority
           }
           return { ...item }
         })

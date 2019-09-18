@@ -1,10 +1,19 @@
 .item
   align-items: center
-  border-bottom: 1px solid #000
+  border-bottom: 1px solid #acacac
   display: flex
   padding: 1rem
   position: relative
   justify-content: space-between
+
+  &::before
+    content: ''
+    height: 100%
+    left: 0
+    top: 50%
+    transform: translateY(-50%)
+    position: absolute
+    width: .3rem
 
   &-mask
     height: 100%
@@ -13,6 +22,18 @@
     left: 0
     z-index: 1
     width: 100%
+
+  &.high
+    &::before
+      background: red
+
+  &.medium
+    &::before
+      background: orange
+
+  &.low
+    &::before
+      background: green
 
   &:last-child
     border-bottom: none

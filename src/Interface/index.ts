@@ -9,6 +9,7 @@ export interface Iitem {
   id: number
   title: string
   completed: boolean
+  priority: string
 }
 
 export interface IlistObj {
@@ -23,6 +24,7 @@ export interface IlistReducer {
 export interface IeditedItem {
   id: number | null
   title: string
+  priority: string
 }
 
 export interface Ifilter {

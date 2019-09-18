@@ -20,7 +20,7 @@ const Item = ({ item, deleteItem, changeItem, editItem }: Iprops) => {
   }
 
   return (
-    <li className="item">
+    <li className={`item ${item.priority}`}>
       <div className="item-mask" onClick={toggleItem} />
       <div className="status">
         <input className="checkbox" type="checkbox" checked={item.completed} onChange={handleChange} />

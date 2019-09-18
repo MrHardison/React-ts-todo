@@ -26,7 +26,7 @@ type Props = Iprops & ReturnType<typeof mapStateToProps>
 
 const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
   const deleteItem = (item: Iitem): void => {
-    dispatch(actionDeleteItem(item))
+    dispatch(actionDeleteItem(item.id))
   }
 
   const toggleItem = (item: Iitem): void => {
@@ -34,7 +34,7 @@ const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
   }
 
   const editItem = (item: Iitem): void => {
-    dispatch(actionToggleEditItem({ id: item.id, title: item.title }))
+    dispatch(actionToggleEditItem({ id: item.id, title: item.title, priority: item.priority }))
   }
 
   const toggleAll = (e: React.ChangeEvent<HTMLInputElement>): void => {

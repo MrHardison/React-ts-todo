@@ -7,9 +7,9 @@ export const actionAddItem = (item: Iitem): listActions => ({
   payload: item
 })
 
-export const actionDeleteItem = (item: Iitem): listActions => ({
+export const actionDeleteItem = (id: number): listActions => ({
   type: DELETE_ITEM,
-  payload: item
+  payload: id
 })
 
 export const actionToggleItem = (item: Iitem): listActions => ({

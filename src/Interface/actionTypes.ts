@@ -7,7 +7,7 @@ export type listActions = {
   payload: Iitem
 } | {
   type: typeof DELETE_ITEM
-  payload: Iitem
+  payload: number
 } | {
   type: typeof TOGGLE_ITEM
   payload: Iitem
