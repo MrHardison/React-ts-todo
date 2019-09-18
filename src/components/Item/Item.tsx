@@ -14,8 +14,14 @@ const Item = ({ item, deleteItem, changeItem, editItem }: Iprops) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     changeItem({ ...item, completed: e.target.checked })
   }
+
+  const toggleItem = () => {
+    changeItem({ ...item, completed: !item.completed })
+  }
+
   return (
     <li className="item">
+      <div className="item-mask" onClick={toggleItem} />
       <div className="status">
         <input className="checkbox" type="checkbox" checked={item.completed} onChange={handleChange} />
       </div>
