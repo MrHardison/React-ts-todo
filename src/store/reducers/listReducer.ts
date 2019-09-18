@@ -3,23 +3,7 @@ import { IlistObj } from '../../Interface'
 import { listActions } from '../../Interface/actionTypes'
 
 const initialState: IlistObj = {
-  list: [
-    {
-      id: 1,
-      title: 'title1',
-      completed: false
-    },
-    {
-      id: 2,
-      title: 'title2',
-      completed: false
-    },
-    {
-      id: 3,
-      title: 'title3',
-      completed: false
-    }
-  ],
+  list: [],
   editedItem: {
     id: null,
     title: ''
