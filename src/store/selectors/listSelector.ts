@@ -1,41 +1,59 @@
 import { createSelector } from 'reselect'
-import { Iroot, Iitem, Ifilter } from '../../Interface'
+import { Iroot, Iitem } from '../../Interface'
 
-const list = (state: Iroot) => state.listReducer.list
-const filter = (state: Iroot) => state.filterReducer.filtersList.find(f => f.active) || { type: 'All', active: true }
+const getList = (state: Iroot) =>
+  state.listReducer.list.sort((a, b) => {
+    if (
+      (a.priority === 'high' && b.priority === 'medium') ||
+      (a.priority === 'high' && b.priority === 'low') ||
+      (a.priority === 'medium' && b.priority === 'low')
+    ) {
+      return -1
+    }
+    return 0
+  })
+const getCurrentfilter = (state: Iroot) => state.filterReducer.currentFilter
+const getPriorityType = (state: Iroot) => state.sortReducer.currentSortType
 
 export const getListByFilter = createSelector(
-  [filter, list],
-  (filter: Ifilter, list: Iitem[]) =>
+  [getCurrentfilter, getList, getPriorityType],
+  (filterType: string, list: Iitem[], priorityType: string) =>
     list
       .filter(item => {
-        if (filter.type.toLowerCase() === 'all') {
-          return item
-        } else if (filter.type.toLowerCase() === 'completed') {
-          return item.completed
-        } else if (filter.type.toLowerCase() === 'active') {
-          return !item.completed
-        } else {
-          return item
+        switch (filterType.toLowerCase()) {
+          case 'all':
+            return item
+
+          case 'completed':
+            return item.completed
+
+          case 'active':
+            return !item.completed
+
+          default:
+            return item
         }
       })
-      .sort((a, b) => {
-        if (
-          (a.priority === 'high' && b.priority === 'low') ||
-          (a.priority === 'medium' && b.priority === 'low') ||
-          (a.priority === 'high' && b.priority === 'medium')
-        ) {
-          return -1
+      .filter(item => {
+        switch (priorityType) {
+          case 'high':
+            return item.priority === 'high'
+
+          case 'medium':
+            return item.priority === 'medium'
+
+          case 'low':
+            return item.priority === 'low'
+
+          case 'none':
+            return item
+
+          default:
+            return item
         }
-        return 0
       })
 )
 export const getCompleteCount = createSelector(
-  [list],
+  [getList],
   (list: Iitem[]) => list.filter(i => i.completed).length
-)
-
-export const getFullListLength = createSelector(
-  [list],
-  (list: Iitem[]) => list.length
 )

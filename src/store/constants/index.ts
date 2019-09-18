@@ -7,3 +7,5 @@ export const EDIT_ITEM = 'EDIT_ITEM'
 export const TOGGLE_ALL = 'TOGGLE_ALL'
 
 export const SELECT_FILTER = 'SELECT_FILTER'
+
+export const SELECT_SORTING_TYPE = 'SELECT_SORTING_TYPE'

@@ -12,22 +12,17 @@ interface Iprops {
 }
 
 const mapStateToProps = (state: Iroot) => ({
+  sortList: state.sortReducer.sortTypes,
   editedItem: state.listReducer.editedItem
 })
 
 type Props = Iprops & ReturnType<typeof mapStateToProps>
 
-const AddForm = ({ editedItem, dispatch }: Props) => {
+const AddForm = ({ editedItem, sortList, dispatch }: Props) => {
   const [title, setTitle] = useState('')
   const [selectedPriority, setSelectedPriority] = useState('high')
   const [edit, setEdit] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-
-  const priorities = [
-    { value: 'high', label: 'High' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'low', label: 'Low' }
-  ]
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.target.value)
@@ -61,7 +56,6 @@ const AddForm = ({ editedItem, dispatch }: Props) => {
       }
       dispatch(actionAddItem(item))
     }
-    setSelectedPriority('high')
     setTitle('')
   }
 
@@ -81,9 +75,9 @@ const AddForm = ({ editedItem, dispatch }: Props) => {
       <input type="text" ref={inputRef} className="textfield" value={title} onChange={handleInput} />
       <div className="form-btn-wrapper">
         <select name="priorities" className="select" value={selectedPriority} onChange={handleSelect}>
-          {priorities.map((p, index) => (
-            <option key={index} value={p.value}>
-              {p.label}
+          {sortList.map((s, index) => (
+            <option key={index} value={s}>
+              {s}
             </option>
           ))}
         </select>

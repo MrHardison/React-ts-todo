@@ -1,17 +1,16 @@
 import React from 'react'
 import './filter.sass'
 
-import { Ifilter } from '../../Interface'
-
 interface Iprops {
-  filter: Ifilter
+  filter: string
+  currentFilter: string
   changeFilter: (filter: string) => void
 }
 
-const Filter = ({ filter, changeFilter }: Iprops) => {
+const Filter = ({ filter, currentFilter, changeFilter }: Iprops) => {
   return (
-    <div className={`filter ${filter.active ? 'active' : ''}`} onClick={() => changeFilter(filter.type)}>
-      {filter.type}
+    <div className={`filter ${filter === currentFilter ? 'active' : ''}`} onClick={() => changeFilter(filter)}>
+      {filter}
     </div>
   )
 }

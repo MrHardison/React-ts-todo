@@ -1,6 +1,7 @@
 export interface Iroot {
   listReducer: IlistObj
   filterReducer: IfiltersObj
+  sortReducer: IsortListObj
   completedCount: number
   fullListLength: number
 }
@@ -27,15 +28,16 @@ export interface IeditedItem {
   priority: string
 }
 
-export interface Ifilter {
-  type: string
-  active: boolean
-}
-
 export interface IfiltersObj {
-  filtersList: Ifilter[]
+  filtersList: string[]
+  currentFilter: string
 }
 
 export interface IfiltersReducer {
   filterReducer: IfiltersObj
+}
+
+export interface IsortListObj {
+  sortTypes: string[]
+  currentSortType: string
 }

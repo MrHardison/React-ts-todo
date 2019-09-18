@@ -6,11 +6,11 @@ import List from '../components/List/List'
 import AddForm from '../components/AddForm/AddForm'
 import Filters from '../components/Filters/Filters'
 
-import { getListByFilter, getCompleteCount, getFullListLength } from '../store/selectors/listSelector'
+import { getListByFilter, getCompleteCount } from '../store/selectors/listSelector'
 
-import { actionDeleteItem, actionToggleItem, actionToggleEditItem, actionToggleAll } from '../store/actions/listActions'
+import { actionToggleAll } from '../store/actions/listActions'
 
-import { Iitem, Iroot } from '../Interface'
+import { Iroot } from '../Interface'
 
 interface Iprops {
   dispatch: Dispatch
@@ -19,25 +19,15 @@ interface Iprops {
 const mapStateToProps = (state: Iroot) => ({
   list: getListByFilter(state),
   completedCount: getCompleteCount(state),
-  fullListlength: getFullListLength(state)
+  fullListlength: state.listReducer.list.length
 })
 
 type Props = Iprops & ReturnType<typeof mapStateToProps>
 
 const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
-  const deleteItem = (item: Iitem): void => {
-    dispatch(actionDeleteItem(item.id))
-  }
+  const itemLeftCount = fullListlength - completedCount
 
-  const toggleItem = (item: Iitem): void => {
-    dispatch(actionToggleItem(item))
-  }
-
-  const editItem = (item: Iitem): void => {
-    dispatch(actionToggleEditItem({ id: item.id, title: item.title, priority: item.priority }))
-  }
-
-  const toggleAll = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const toggleAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(actionToggleAll(e.target.checked))
   }
 
@@ -47,7 +37,7 @@ const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
         <AddForm />
         {list.length ? (
           <>
-            <List list={list} deleteItem={deleteItem} changeItem={toggleItem} editItem={editItem} />
+            <List list={list} />
             <div className="info-wrapper">
               <div className="toggle-all">
                 <label className="label" htmlFor="toggler">
@@ -57,15 +47,13 @@ const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
                   id="toggler"
                   className="checkbox"
                   type="checkbox"
-                  checked={completedCount === list.length ? true : false}
+                  checked={completedCount === list.length}
                   onChange={toggleAll}
                 />
               </div>
               <div className="left-count">
-                <span className={fullListlength - completedCount === 0 ? 'count red' : 'count'}>
-                  {fullListlength - completedCount}
-                </span>{' '}
-                {fullListlength - completedCount === 1 ? 'item' : 'items'} left
+                <span className={`count ${itemLeftCount === 0 ? 'red' : ''}`}>{itemLeftCount}</span>{' '}
+                {itemLeftCount === 1 ? 'item' : 'items'} left
               </div>
             </div>
           </>

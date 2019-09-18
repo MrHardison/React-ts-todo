@@ -1,36 +1,48 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
 import './item.sass'
 
 import { Iitem } from '../../Interface'
+import { actionDeleteItem, actionToggleItem, actionToggleEditItem } from '../../store/actions/listActions'
 
 interface Iprops {
   item: Iitem
-  deleteItem: (item: Iitem) => void
-  changeItem: (item: Iitem) => void
-  editItem: (item: Iitem) => void
+  dispatch: Dispatch
 }
 
-const Item = ({ item, deleteItem, changeItem, editItem }: Iprops) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    changeItem({ ...item, completed: e.target.checked })
+const Item = ({ item, dispatch }: Iprops) => {
+  const deleteItem = () => {
+    dispatch(actionDeleteItem(item.id))
   }
 
-  const toggleItem = () => {
-    changeItem({ ...item, completed: !item.completed })
+  const toggleItem = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(actionToggleItem(item.id, e.target.checked))
+  }
+
+  const editItem = () => {
+    dispatch(actionToggleEditItem({ id: item.id, title: item.title, priority: item.priority }))
   }
 
   return (
     <li className={`item ${item.priority}`}>
-      <div className="item-mask" onClick={toggleItem} />
+      <label htmlFor={`itemToggler_${item.id}`} className="item-mask" />
       <div className="status">
-        <input className="checkbox" type="checkbox" checked={item.completed} onChange={handleChange} />
+        <input
+          id={`itemToggler_${item.id}`}
+          className="checkbox"
+          type="checkbox"
+          checked={item.completed}
+          onChange={toggleItem}
+        />
       </div>
       <div className={`title ${item.completed ? 'completed' : ''}`}>{item.title}</div>
       <div className="actions">
-        <button className="edit" onClick={(): void => editItem(item)}>
+        <button className="edit" onClick={editItem}>
           Edit
         </button>
-        <button className="delete" onClick={(): void => deleteItem(item)}>
+        <button className="delete" onClick={deleteItem}>
           &times;
         </button>
       </div>
@@ -38,4 +50,4 @@ const Item = ({ item, deleteItem, changeItem, editItem }: Iprops) => {
   )
 }
 
-export default Item
+export default connect()(Item)

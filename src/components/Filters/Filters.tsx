@@ -15,21 +15,21 @@ interface Iprops {
 }
 
 const mapStateToProps = (state: IfiltersReducer) => ({
-  filtersList: state.filterReducer.filtersList
+  filtersList: state.filterReducer.filtersList,
+  currentFilter: state.filterReducer.currentFilter
 })
 
 type Props = Iprops & ReturnType<typeof mapStateToProps>
 
-const Filters = ({ filtersList, dispatch }: Props) => {
+const Filters = ({ filtersList, currentFilter, dispatch }: Props) => {
   const changeFilter = (type: string) => {
-    const selectedFilter = filtersList.find(f => f.type === type)
-    if (selectedFilter && !selectedFilter.active) dispatch(actionSelectFilter(type))
+    if (currentFilter !== type) dispatch(actionSelectFilter(type))
   }
 
   return (
     <ul className="filters">
       {filtersList.map((f, index) => (
-        <Filter key={index} filter={f} changeFilter={changeFilter} />
+        <Filter key={index} filter={f} currentFilter={currentFilter} changeFilter={changeFilter} />
       ))}
     </ul>
   )

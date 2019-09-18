@@ -10,7 +10,7 @@ export type listActions = {
   payload: number
 } | {
   type: typeof TOGGLE_ITEM
-  payload: Iitem
+  payload: {id: number, completed: boolean}
 } | {
   type: typeof TOGGLE_ALL
   payload: boolean

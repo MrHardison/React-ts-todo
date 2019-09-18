@@ -12,9 +12,9 @@ export const actionDeleteItem = (id: number): listActions => ({
   payload: id
 })
 
-export const actionToggleItem = (item: Iitem): listActions => ({
+export const actionToggleItem = (id: number, completed: boolean): listActions => ({
   type: TOGGLE_ITEM,
-  payload: item
+  payload: { id, completed }
 })
 
 export const actionToggleAll = (status: boolean): listActions => ({
