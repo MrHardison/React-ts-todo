@@ -71,11 +71,13 @@ const AddForm = ({ editedItem, sortList, dispatch }: Props) => {
       <input type="text" ref={inputRef} className="textfield" value={title} onChange={handleInput} />
       <div className="form-btn-wrapper">
         <select name="priorities" className="select" value={selectedPriority} onChange={handleSelect}>
-          {sortList.map((s, index) => (
-            <option key={index} value={s}>
-              {s}
-            </option>
-          ))}
+          {sortList
+            .filter(item => item !== 'none')
+            .map((s, index) => (
+              <option key={index} value={s}>
+                {s}
+              </option>
+            ))}
         </select>
         <button onClick={handleSubmit}>{edit ? 'Edit' : 'Add'} item</button>
       </div>

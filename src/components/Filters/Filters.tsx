@@ -33,7 +33,7 @@ const Filters = ({ filtersList, currentFilter, sortList, currentSortType, dispat
         if (currentSortType !== type) dispatch(actionSelectSortingType(type))
       }
     },
-    [filtersList, sortList, currentFilter, currentSortType, dispatch]
+    [filtersList, sortList, currentFilter, currentSortType]
   )
   // const changeFilter = (type: string) => {
   //   if (filtersList.includes(type)) {
