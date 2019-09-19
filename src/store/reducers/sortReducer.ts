@@ -7,8 +7,8 @@ interface Iprops {
 }
 
 const initialState: IsortListObj = {
-  sortTypes: ['high', 'medium', 'low'],
-  currentSortType: ''
+  sortTypes: ['none', 'high', 'medium', 'low'],
+  currentSortType: 'none'
 }
 
 const sortReducer = (state = initialState, { type, payload }: Iprops) => {

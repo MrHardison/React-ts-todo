@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import Item from '../Item/Item'
 import './list.sass'
 
@@ -18,4 +18,4 @@ const List = ({ list }: Iprops) => {
   )
 }
 
-export default List
+export default React.memo(List)

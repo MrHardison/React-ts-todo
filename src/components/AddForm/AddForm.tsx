@@ -24,15 +24,15 @@ const AddForm = ({ editedItem, sortList, dispatch }: Props) => {
   const [edit, setEdit] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedPriority(e.target.value)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>): void => {
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (edit) {
       const item = {
@@ -42,7 +42,7 @@ const AddForm = ({ editedItem, sortList, dispatch }: Props) => {
       }
       if (title.trim()) {
         dispatch(actionEditItem(item))
-        dispatch(actionToggleEditItem({ ...item, id: null, title: '', priority: 'high' }))
+        dispatch(actionToggleEditItem(null, title, 'high'))
       } else if (!title.trim() && editedItem.id) {
         dispatch(actionDeleteItem(editedItem.id))
       }

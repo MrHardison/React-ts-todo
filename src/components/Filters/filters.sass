@@ -2,7 +2,41 @@
   background: #fff
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2), 0 25px 50px 0 rgba(0,0,0,.1)
   border-radius: 4px
+  padding: .5rem
+
+  &-list
+    align-items: center
+    display: flex
+    justify-content: center
+
+  .filter-wrap
+    align-items: center
+    display: flex
+    justify-content: space-between
+
+.sort-list
   align-items: center
-  padding: .5rem 0
   display: flex
+  justify-content: center
+
+  .sort-item
+    border: 1px solid transparent
+    border-radius: 5px
+    box-sizing: border-box
+    cursor: pointer
+    margin: 0 .25rem
+    padding: .5rem 0.75rem
+    text-transform: capitalize
+    transition: border .1s ease
+
+    &.active, &:hover
+      background: rgba(green, .1)
+      border-color: green
+
+    &.active
+      cursor: default
+
+.text
+  display: flex
+  font-size: 14px
   justify-content: center

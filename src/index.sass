@@ -20,6 +20,7 @@ code
   width: 500px
 
 ul
+  list-style: none
   padding: 0
   margin: 0
 
@@ -58,6 +59,7 @@ button
     display: flex
 
   .label
+    user-select: none
     margin-right: .5rem
 
   .left-count
@@ -72,3 +74,9 @@ button
 
 .checkbox
   margin: 0
+
+.clear-completed
+  cursor: pointer
+
+  &:hover
+    text-decoration: underline

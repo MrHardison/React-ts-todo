@@ -22,7 +22,7 @@ const Item = ({ item, dispatch }: Iprops) => {
   }
 
   const editItem = () => {
-    dispatch(actionToggleEditItem({ id: item.id, title: item.title, priority: item.priority }))
+    dispatch(actionToggleEditItem(item.id, item.title, item.priority))
   }
 
   return (

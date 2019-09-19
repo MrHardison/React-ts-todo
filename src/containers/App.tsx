@@ -8,7 +8,7 @@ import Filters from '../components/Filters/Filters'
 
 import { getListByFilter, getCompleteCount } from '../store/selectors/listSelector'
 
-import { actionToggleAll } from '../store/actions/listActions'
+import { actionToggleAll, actionClearCompleted } from '../store/actions/listActions'
 
 import { Iroot } from '../Interface'
 
@@ -31,6 +31,10 @@ const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
     dispatch(actionToggleAll(e.target.checked))
   }
 
+  const clearCompleted = () => {
+    dispatch(actionClearCompleted())
+  }
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -51,6 +55,11 @@ const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
                   onChange={toggleAll}
                 />
               </div>
+              {list.filter(item => item.completed).length ? (
+                <div className="clear-completed" onClick={clearCompleted}>
+                  Clear completed
+                </div>
+              ) : null}
               <div className="left-count">
                 <span className={`count ${itemLeftCount === 0 ? 'red' : ''}`}>{itemLeftCount}</span>{' '}
                 {itemLeftCount === 1 ? 'item' : 'items'} left

@@ -33,8 +33,9 @@ export interface IfiltersObj {
   currentFilter: string
 }
 
-export interface IfiltersReducer {
+export interface Ifilters {
   filterReducer: IfiltersObj
+  sortReducer: IsortListObj
 }
 
 export interface IsortListObj {

@@ -1,4 +1,4 @@
-import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM, TOGGLE_EDIT, EDIT_ITEM, TOGGLE_ALL } from '../constants'
+import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM, TOGGLE_EDIT, EDIT_ITEM, TOGGLE_ALL, CLEAR_COMPLETED } from '../constants'
 import { IlistObj } from '../../Interface'
 import { listActions } from '../../Interface/actionTypes'
 
@@ -18,6 +18,9 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
 
     case DELETE_ITEM:
       return { ...state, list: state.list.filter(item => item.id !== action.payload) }
+
+    case CLEAR_COMPLETED:
+      return { ...state, list: state.list.filter(item => !item.completed) }
 
     case TOGGLE_ITEM:
       return {

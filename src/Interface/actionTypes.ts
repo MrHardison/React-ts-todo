@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM, TOGGLE_EDIT, EDIT_ITEM, TOGGLE_ALL } from '../store/constants'
+import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM, TOGGLE_EDIT, EDIT_ITEM, TOGGLE_ALL, CLEAR_COMPLETED } from '../store/constants'
 import { Iitem, IeditedItem } from '.'
 
 export type listActions = {
@@ -20,4 +20,7 @@ export type listActions = {
 } | {
   type: typeof EDIT_ITEM
   payload: IeditedItem
+} | {
+  type: typeof CLEAR_COMPLETED
+  payload: boolean
 }

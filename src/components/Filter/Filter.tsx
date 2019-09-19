@@ -15,4 +15,4 @@ const Filter = ({ filter, currentFilter, changeFilter }: Iprops) => {
   )
 }
 
-export default Filter
+export default React.memo(Filter)
