@@ -35,6 +35,13 @@ const Filters = ({ filtersList, currentFilter, sortList, currentSortType, dispat
     },
     [filtersList, sortList, currentFilter, currentSortType, dispatch]
   )
+  // const changeFilter = (type: string) => {
+  //   if (filtersList.includes(type)) {
+  //     if (currentFilter !== type) dispatch(actionSelectFilter(type))
+  //   } else if (sortList.includes(type)) {
+  //     if (currentSortType !== type) dispatch(actionSelectSortingType(type))
+  //   }
+  // }
 
   return (
     <div className="filters">

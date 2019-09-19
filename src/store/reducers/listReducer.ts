@@ -27,7 +27,7 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
         ...state,
         list: state.list.map(item => {
           if (item.id === action.payload.id) {
-            item.completed = action.payload.completed
+            return { ...item, completed: action.payload.completed }
           }
           return item
         })
