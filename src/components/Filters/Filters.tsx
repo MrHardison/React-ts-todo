@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -25,13 +25,16 @@ const mapStateToProps = (state: Ifilters) => ({
 type Props = Iprops & ReturnType<typeof mapStateToProps>
 
 const Filters = ({ filtersList, currentFilter, sortList, currentSortType, dispatch }: Props) => {
-  const changeFilter = (type: string) => {
-    if (filtersList.includes(type)) {
-      if (currentFilter !== type) dispatch(actionSelectFilter(type))
-    } else if (sortList.includes(type)) {
-      if (currentSortType !== type) dispatch(actionSelectSortingType(type))
-    }
-  }
+  const changeFilter = useCallback(
+    (type: string) => {
+      if (filtersList.includes(type)) {
+        if (currentFilter !== type) dispatch(actionSelectFilter(type))
+      } else if (sortList.includes(type)) {
+        if (currentSortType !== type) dispatch(actionSelectSortingType(type))
+      }
+    },
+    [filtersList, sortList, currentFilter, currentSortType, dispatch]
+  )
 
   return (
     <div className="filters">
@@ -49,7 +52,7 @@ const Filters = ({ filtersList, currentFilter, sortList, currentSortType, dispat
           {sortList.map((s, index) => (
             <li
               key={index}
-              className={`sort-item ${currentSortType === s ? 'active' : ''}`}
+              className={`sort-item ${s} ${currentSortType === s ? 'active' : ''}`}
               onClick={() => changeFilter(s)}
             >
               {s}

@@ -27,14 +27,27 @@
     margin: 0 .25rem
     padding: .5rem 0.75rem
     text-transform: capitalize
-    transition: border .1s ease
+    transition: border .1s ease, background-color .1s ease
 
     &.active, &:hover
-      background: rgba(green, .1)
-      border-color: green
+      background: rgba(gray, .1)
+      border-color: gray
+
+      &.high
+        background: rgba(red, .1)
+        border-color: red
+
+      &.medium
+        background: rgba(orange, .1)
+        border-color: orange
+
+      &.low
+        background: rgba(green, .1)
+        border-color: green
 
     &.active
       cursor: default
+
 
 .text
   display: flex

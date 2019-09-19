@@ -44,7 +44,10 @@ const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
             <List list={list} />
             <div className="info-wrapper">
               <div className="toggle-all">
-                <label className="label" htmlFor="toggler">
+                <label
+                  className={`label ${completedCount === list.length ? 'uncomplete' : 'complete'}`}
+                  htmlFor="toggler"
+                >
                   {completedCount === list.length ? 'Uncomplete' : 'Complete'} all
                 </label>
                 <input

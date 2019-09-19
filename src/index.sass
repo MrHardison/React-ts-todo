@@ -61,6 +61,29 @@ button
   .label
     user-select: none
     margin-right: .5rem
+    position: relative
+
+    &::before
+      content: ''
+      position: absolute
+      top: 50%
+      left: -15px
+      transform: translateY(-50%)
+      transition: opacity .5s ease
+      opacity: 0
+
+    &:hover
+      &.complete
+        &::before
+          color: green
+          content: '\2714'
+          opacity: 1
+
+      &.uncomplete
+        &::before
+          color: red
+          content: '\2718'
+          opacity: 1
 
   .left-count
     .count
@@ -76,6 +99,7 @@ button
   margin: 0
 
 .clear-completed
+  position: relative
   cursor: pointer
 
   &:hover
