@@ -42,10 +42,7 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
     case TOGGLE_ALL:
       return {
         ...state,
-        list: state.list.map(item => {
-          item.completed = action.payload
-          return { ...item }
-        })
+        list: state.list.map(item => ({ ...item, completed: action.payload }))
       }
 
     case EDIT_ITEM:
@@ -53,10 +50,9 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
         ...state,
         list: state.list.map(item => {
           if (item.id === action.payload.id) {
-            item.title = action.payload.title
-            item.priority = action.payload.priority
+            return { ...item, title: action.payload.title, priority: action.payload.priority }
           }
-          return { ...item }
+          return item
         })
       }
 
