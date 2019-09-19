@@ -24,13 +24,9 @@ const AddForm = ({ editedItem, sortList, dispatch }: Props) => {
   const [edit, setEdit] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value)
-  }
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedPriority(e.target.value)
-  }
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedPriority(e.target.value)
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()

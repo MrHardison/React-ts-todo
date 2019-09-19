@@ -25,12 +25,9 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
     case TOGGLE_ITEM:
       return {
         ...state,
-        list: state.list.map(item => {
-          if (item.id === action.payload.id) {
-            return { ...item, completed: action.payload.completed }
-          }
-          return item
-        })
+        list: state.list.map(item =>
+          item.id === action.payload.id ? { ...item, completed: action.payload.completed } : item
+        )
       }
 
     case TOGGLE_EDIT:
@@ -48,12 +45,11 @@ const listReducer = (state = initialState, action: listActions): IlistObj => {
     case EDIT_ITEM:
       return {
         ...state,
-        list: state.list.map(item => {
-          if (item.id === action.payload.id) {
-            return { ...item, title: action.payload.title, priority: action.payload.priority }
-          }
-          return item
-        })
+        list: state.list.map(item =>
+          item.id === action.payload.id
+            ? { ...item, title: action.payload.title, priority: action.payload.priority }
+            : item
+        )
       }
 
     default:

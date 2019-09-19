@@ -13,17 +13,11 @@ interface Iprops {
 }
 
 const Item = ({ item, dispatch }: Iprops) => {
-  const deleteItem = () => {
-    dispatch(actionDeleteItem(item.id))
-  }
+  const deleteItem = () => dispatch(actionDeleteItem(item.id))
 
-  const toggleItem = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(actionToggleItem(item.id, e.target.checked))
-  }
+  const toggleItem = (e: React.ChangeEvent<HTMLInputElement>) => dispatch(actionToggleItem(item.id, e.target.checked))
 
-  const editItem = () => {
-    dispatch(actionToggleEditItem(item.id, item.title, item.priority))
-  }
+  const editItem = () => dispatch(actionToggleEditItem(item.id, item.title, item.priority))
 
   return (
     <li className={`item ${item.priority}`}>

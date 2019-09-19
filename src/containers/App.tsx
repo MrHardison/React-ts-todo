@@ -27,13 +27,9 @@ type Props = Iprops & ReturnType<typeof mapStateToProps>
 const App = ({ list, completedCount, fullListlength, dispatch }: Props) => {
   const itemLeftCount = fullListlength - completedCount
 
-  const toggleAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(actionToggleAll(e.target.checked))
-  }
+  const toggleAll = (e: React.ChangeEvent<HTMLInputElement>) => dispatch(actionToggleAll(e.target.checked))
 
-  const clearCompleted = () => {
-    dispatch(actionClearCompleted())
-  }
+  const clearCompleted = () => dispatch(actionClearCompleted())
 
   return (
     <div className="container">
