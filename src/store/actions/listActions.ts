@@ -2,14 +2,14 @@ import { ADD_ITEM, DELETE_ITEM, TOGGLE_ITEM, TOGGLE_EDIT, EDIT_ITEM, TOGGLE_ALL,
 import { Iitem, IeditedItem } from '../../Interface'
 import { listActions } from '../../Interface/actionTypes'
 
-export const actionAddItem = (item: Iitem): listActions => ({
+export const actionAddItem = (payload: Iitem): listActions => ({
   type: ADD_ITEM,
-  payload: item
+  payload
 })
 
-export const actionDeleteItem = (id: number): listActions => ({
+export const actionDeleteItem = (payload: number): listActions => ({
   type: DELETE_ITEM,
-  payload: id
+  payload
 })
 
 export const actionClearCompleted = (): listActions => ({
@@ -22,9 +22,9 @@ export const actionToggleItem = (id: number, completed: boolean): listActions =>
   payload: { id, completed }
 })
 
-export const actionToggleAll = (status: boolean): listActions => ({
+export const actionToggleAll = (payload: boolean): listActions => ({
   type: TOGGLE_ALL,
-  payload: status
+  payload
 })
 
 export const actionToggleEditItem = (id: number | null, title: string, priority: string): listActions => ({
@@ -32,7 +32,7 @@ export const actionToggleEditItem = (id: number | null, title: string, priority:
   payload: { id, title, priority }
 })
 
-export const actionEditItem = (item: IeditedItem): listActions => ({
+export const actionEditItem = (payload: IeditedItem): listActions => ({
   type: EDIT_ITEM,
-  payload: item
+  payload
 })
