@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 import './auth.sass'
 
-const Auth = ({ history }) => {
+const Auth = () => {
   const [authData, setAuthData] = useState({ login: '', password: ' ' })
   const [errorText, setErrorText] = useState('')
 
